@@ -35,7 +35,9 @@
                 mediaRecorder.onstop = () => {
                     let blob = new Blob(chunks, {type:'video/mp4'})
                     chunks = []
-                    
+                    let vid = document.createElement('video')
+                    video.setAttribute('src', blob)
+                    feed.appendChild(video)
                 }
                 document.getElementById('capVideo').addEventListener('click', ()=>{
                     if(started)
