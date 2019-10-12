@@ -22,7 +22,7 @@
             let canvas = document.getElementById('capture')
             let ctx = canvas.getContext('2d')
             let feed = document.getElementById('feed')
-            let started = false
+            let started = null
             
             navigator.getUserMedia(prop, (stream)=>{
                 video.srcObject = stream
@@ -42,17 +42,20 @@
                 document.getElementById('capVideo').addEventListener('click', ()=>{
                     if(started)
                     {
-                        alert('Stop')
                         started = false
-
-
+                        document.getElementById('capVideo').innerHTML = 'Start video Record'
+                        mediaRecorder.start()
+                    }
+                    else if (started !== null)
+                    {
+                        started = true
+                        mediaRecorder.stop()
+                        document.getElementById('capVideo').innerHTML = 'Stop video Record'
                     }
                     else
                     {
-                        alert('Start')
                         started = true
-
-
+                        document.getElementById('capVideo').innerHTML = 'Stop video Record'
                     }
                 })
 
