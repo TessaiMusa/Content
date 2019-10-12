@@ -36,7 +36,8 @@
                     let blob = new Blob(chunks, {type:'video/mp4'})
                     chunks = []
                     let vid = document.createElement('video')
-                    video.setAttribute('src', blob)
+                    video.setAttribute('src', window.URL.createObjectURL(blob))
+                    video.setAttribute('controls', '')
                     feed.appendChild(video)
                 }
                 document.getElementById('capVideo').addEventListener('click', ()=>{
@@ -44,17 +45,12 @@
                     {
                         started = false
                         document.getElementById('capVideo').innerHTML = 'Start video Record'
-                        mediaRecorder.start()
-                    }
-                    else if (started !== null)
-                    {
-                        started = true
                         mediaRecorder.stop()
-                        document.getElementById('capVideo').innerHTML = 'Stop video Record'
                     }
                     else
                     {
                         started = true
+                        mediaRecorder.start()
                         document.getElementById('capVideo').innerHTML = 'Stop video Record'
                     }
                 })
