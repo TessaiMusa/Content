@@ -15,17 +15,25 @@
     <div id="feed" style="width:50px">
 
     </div>
-    <canvas id="capture"></canvas>
+    <canvas id="capture" style="display: none;"></canvas>
     <script>
             let video = document.getElementById("video")
             let prop = {video:true, audio:true} 
             let canvas = document.getElementById('capture')
             let ctx = canvas.getContext('2d')
             let feed = document.getElementById('feed')
+            let started = false
             
             navigator.getUserMedia(prop, (stream)=>{
                 video.srcObject = stream
                 video.play()
+                let mediaRecorder = new MediaRecorder(stream)
+                let chunks = []
+
+                document.getElementById('capVideo').addEventListener('click', ()=>{
+                    
+                })
+
             }, (error) => alert(error))
 
             document.getElementById('capImage').addEventListener('click', ()=> {
@@ -34,7 +42,11 @@
                 let img = document.createElement('img')
                 img.setAttribute('src', canvas.toDataURL('image/png'))
                 feed.appendChild(img)
+
             })
+
+            
+            
             
     </script>
 </body>
