@@ -32,26 +32,29 @@
                 mediaRecorder.ondataavailable = (values) => {
                     chunks.push(values.data)
                 }
-                mediaRecorder.onstop = () => {
-                    let blob = new Blob(chunks, {type:'video/mp4'})
-                    chunks = []
-                    let vid = document.createElement('video')
-                    vid.setAttribute('src', window.URL.createObjectURL(blob))
-                    vid.setAttribute('controls', '')
-                    feed.appendChild(vid)
-                }
                 document.getElementById('capVideo').addEventListener('click', ()=>{
                     if(started)
                     {
                         started = false
                         document.getElementById('capVideo').innerHTML = 'Start video Record'
                         mediaRecorder.stop()
+                        document.getElementById('capAudio').removeAttribute('disabled')
+
                     }
                     else
                     {
                         started = true
                         mediaRecorder.start()
                         document.getElementById('capVideo').innerHTML = 'Stop video Record'
+                        document.getElementById('capAudio').setAttribute('disabled', '')
+                        mediaRecorder.onstop = () => {
+                            let blob = new Blob(chunks, {type:'video/mp4'})
+                            chunks = []
+                            let vid = document.createElement('video')
+                            vid.setAttribute('src', window.URL.createObjectURL(blob))
+                            vid.setAttribute('controls', '')
+                            feed.appendChild(vid)
+                        }
                         
                     }
                     console.log(mediaRecorder.state)
@@ -61,14 +64,16 @@
                     if(started)
                     {
                         started = false
-                        document.getElementById('capVideo').innerHTML = 'Start video Record'
+                        document.getElementById('capAudio').innerHTML = 'Start audio Record'
                         mediaRecorder.stop()
+                        document.getElementById('capVideo').removeAttribute('disabled')
                     }
                     else
                     {
                         started = true
                         mediaRecorder.start()
-                        document.getElementById('capVideo').innerHTML = 'Stop video Record'
+                        document.getElementById('capAudio').innerHTML = 'Stop audio Record'
+                        document.getElementById('capVideo').setAttribute('disabled', '')
                         mediaRecorder.onstop = () => {
                             let blob = new Blob(chunks, {type:'audio/mp3'})
                             chunks = []
