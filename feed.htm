@@ -57,6 +57,33 @@
                     console.log(mediaRecorder.state)
                 })
 
+                document.getElementById('capAudio').addEventListener('click', ()=>{
+                    if(started)
+                    {
+                        started = false
+                        document.getElementById('capVideo').innerHTML = 'Start video Record'
+                        mediaRecorder.stop()
+                    }
+                    else
+                    {
+                        started = true
+                        mediaRecorder.start()
+                        document.getElementById('capVideo').innerHTML = 'Stop video Record'
+                        mediaRecorder.onstop = () => {
+                            let blob = new Blob(chunks, {type:'audio/mp3'})
+                            chunks = []
+                            let aud = document.createElement('audio')
+                            aud.setAttribute('src', window.URL.createObjectURL(blob))
+                            aud.setAttribute('controls', '')
+                            aud.appendChild(vid)
+                        }
+                        
+                    }
+                    console.log(mediaRecorder.state)
+                })
+
+                
+
             }, (error) => alert(error))
 
             document.getElementById('capImage').addEventListener('click', ()=> {
