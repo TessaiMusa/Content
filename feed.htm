@@ -12,17 +12,25 @@
     <button id="capImage">Take Photo</button>
     <button id="capVideo">Start Video Record</button>
     <button id="capAudio">Start Audio Record</button>
+    <div id="feed" style="width:50px">
+
+    </div>
+    <canvas id="capture"></canvas>
     <script>
-            var video = document.getElementById("video")
+            let video = document.getElementById("video")
             let prop = {video:true, audio:true} 
+            let canvas = document.getElementById('capture')
+            let ctx = canvas.getContext('2d')
             
             navigator.getUserMedia(prop, (stream)=>{
                 video.srcObject = stream
                 video.play()
             }, (error) => alert(error))
 
-
-
-        </script>
+            document.getElementById('capImage').addEventListener('click', ()=> {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+            })
+            
+    </script>
 </body>
 </html>
