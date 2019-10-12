@@ -15,7 +15,7 @@
     <div id="feed" style="width:50px">
 
     </div>
-    <canvas id="capture" style="display: none;"></canvas>
+    <canvas id="capture" style="display: none;" width="400" height="300"></canvas>
     <script>
             let video = document.getElementById("video")
             let prop = {video:true, audio:true} 
@@ -29,17 +29,28 @@
                 video.play()
                 let mediaRecorder = new MediaRecorder(stream)
                 let chunks = []
-
+                mediaRecorder.ondataavailable = (values) => {
+                    chunks.push(values.data)
+                }
+                mediaRecorder.onstop = () => {
+                    let blob = new Blob(chunks, {type:'video/mp4'})
+                    chunks = []
+                    
+                }
                 document.getElementById('capVideo').addEventListener('click', ()=>{
                     if(started)
                     {
                         alert('Stop')
                         started = false
+
+
                     }
                     else
                     {
                         alert('Start')
                         started = true
+
+
                     }
                 })
 
