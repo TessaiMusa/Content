@@ -31,7 +31,16 @@
                 let chunks = []
 
                 document.getElementById('capVideo').addEventListener('click', ()=>{
-                    
+                    if(started)
+                    {
+                        alert('Stop')
+                        started = false
+                    }
+                    else
+                    {
+                        alert('Start')
+                        started = true
+                    }
                 })
 
             }, (error) => alert(error))
