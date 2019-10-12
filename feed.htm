@@ -8,6 +8,10 @@
 </head>
 <body>
     <video id="video" width="400" height=400></video>
+    <canvas id="feed1"></canvas>
+    <button id="capImage">Take Photo</button>
+    <button id="capVideo">Start Video Record</button>
+    <button id="capAudio">Start Audio Record</button>
     <script>
             var video = document.getElementById("video")
             let prop = {video:true, audio:true} 
@@ -16,6 +20,9 @@
                 video.srcObject = stream
                 video.play()
             }, (error) => alert(error))
+
+
+
         </script>
 </body>
 </html>
