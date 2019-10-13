@@ -48,6 +48,7 @@
                     let reader = new FileReader()
                     reader.addEventListener('load', (e) => {
                         let vid = document.createElement('video')
+                        vid.setAttribute('controls','')
                         vid.setAttribute('src', e.target.result)
                         feed.appendChild(vid)
                     })
