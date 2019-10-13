@@ -13,9 +13,9 @@
     <button id="capVideo">Start Video Record</button>
     <button id="capAudio">Start Audio Record</button>
     <br>
-    <p>Image:</p><input type="image" id="img_upl">
-    <p>Video:</p><input type="video" id="vid_upl">
-    <p>Audio:</p><input type="audio" id="vid_upl">
+    <p>Image:</p><input type="file" accept="image/*" id="img_upl">
+    <p>Video:</p><input type="file" accept="video/*" id="vid_upl">
+    <p>Audio:</p><input type="file" accept="audio/*" id="aud_upl">
     <div id="feed" style="width:50px">
 
     </div>
@@ -36,6 +36,34 @@
                         let img = document.createElement('img')
                         img.setAttribute('src', e.target.result)
                         feed.appendChild(img)
+                    })
+
+                    reader.readAsDataURL(temp.files[0])
+                }
+            })
+
+            document.getElementById('vid_upl').addEventListener('change', ()=>{
+                let temp = document.getElementById('vid_upl')
+                if(temp.files) {
+                    let reader = new FileReader()
+                    reader.addEventListener('load', (e) => {
+                        let vid = document.createElement('video')
+                        vid.setAttribute('src', e.target.result)
+                        feed.appendChild(vid)
+                    })
+
+                    reader.readAsDataURL(temp.files[0])
+                }
+            })
+
+            document.getElementById('aud_upl').addEventListener('change', ()=>{
+                let temp = document.getElementById('aud_upl')
+                if(temp.files) {
+                    let reader = new FileReader()
+                    reader.addEventListener('load', (e) => {
+                        let aud = document.createElement('audio')
+                        aud.setAttribute('src', e.target.result)
+                        feed.appendChild(aud)
                     })
 
                     reader.readAsDataURL(temp.files[0])
