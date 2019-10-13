@@ -63,6 +63,7 @@
                     let reader = new FileReader()
                     reader.addEventListener('load', (e) => {
                         let aud = document.createElement('audio')
+                        aud.setAttribute('controls', '')
                         aud.setAttribute('src', e.target.result)
                         feed.appendChild(aud)
                     })
